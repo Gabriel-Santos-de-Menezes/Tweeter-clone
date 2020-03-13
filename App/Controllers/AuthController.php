@@ -25,6 +25,7 @@ class AuthController extends Action{
 
             session_start();
 
+            //setar a super global session com os indices id e nome
             $_SESSION['id'] = $usuario->__get('id');
             $_SESSION['nome'] = $usuario->__get('nome');
 
@@ -36,6 +37,12 @@ class AuthController extends Action{
             header('Location: /?login=erro');
         }
 
+    }
+
+    public function sair(){
+        session_start();
+        session_destroy();
+        header('Location: /');
     }
 
 }

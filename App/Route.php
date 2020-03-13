@@ -24,16 +24,22 @@ class Route extends Bootstrap{
             'action' => 'registrar'
         );
 
-        $routes['autenticar'] = array(//array de configuração da rota registrar
+        $routes['autenticar'] = array(//array de configuração da rota autenticar
             'route' => '/autenticar',
             'controller' => 'AuthController',//novo controlador
             'action' => 'autenticar'
         );
 
-        $routes['timeline'] = array(//array de configuração da rota registrar
+        $routes['timeline'] = array(//array de configuração da rota timeline
             'route' => '/timeline',
             'controller' => 'AppController',//novo controlador
             'action' => 'timeline'
+        );
+
+        $routes['sair'] = array(//array de configuração da rota sair
+            'route' => '/sair',
+            'controller' => 'AuthController',//novo controlador
+            'action' => 'sair'
         );
         
         $this->setRoutes($routes);

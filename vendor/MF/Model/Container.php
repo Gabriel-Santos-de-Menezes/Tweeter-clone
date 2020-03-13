@@ -1,6 +1,6 @@
 <?php 
 //Container é responsável, com base em uma string instanciar um modelo, 
-//e instamciar a classe de conexão com o banco
+//e instanciar a classe de conexão com o banco
 namespace MF\Model;
 
 use App\Connection;//Para usar o namespace que tem a classe estática

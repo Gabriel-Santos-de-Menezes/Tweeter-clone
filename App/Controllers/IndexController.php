@@ -1,4 +1,6 @@
 <?php
+
+//Controlador para trabalhar com páginas externas da aplicação, como a home e o formulario
 namespace App\Controllers;
 
 //Os recursoso do miniframework
@@ -11,6 +13,8 @@ class IndexController extends Action{
 
     public function index(){
 
+        //caso o login não ocasione um erro, não passa-se o erro na url via get
+        $this->view->login = isset($_GET['login']) ? $_GET['login'] : '';
         $this->render('index');
     }
 

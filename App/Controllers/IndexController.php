@@ -38,7 +38,7 @@ class IndexController extends Action{
 
         $usuario->__set('nome', $_POST['nome']);
         $usuario->__set('email', $_POST['email']);
-        $usuario->__set('senha', $_POST['senha']);
+        $usuario->__set('senha', md5($_POST['senha']));//colocando criptografia md5 na senha, convertendo em um rash de 32 caracteres
 
         //sucesso
         if($usuario->validarCadastro() && count($usuario->getUsuarioPorEmail()) == 0){

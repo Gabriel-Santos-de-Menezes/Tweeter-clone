@@ -41,6 +41,13 @@ class Route extends Bootstrap{
             'controller' => 'AuthController',//novo controlador
             'action' => 'sair'
         );
+
+
+        $routes['tweet'] = array(//array de configuração da rota tweet
+            'route' => '/tweet',
+            'controller' => 'AppController',//novo controlador
+            'action' => 'tweet'
+        );
         
         $this->setRoutes($routes);
     }

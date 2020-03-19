@@ -57,6 +57,32 @@ class AppController extends Action{
     }
 
 
+    public function quemSeguir(){
+        //ver se a autenticação foi realizada
+        $this->validaAutenticacao();//se for falso ira ser redirecionado para a página de login
+        
+        //if ternário
+        $pesquisarPor = isset($_GET['pesquisarPor']) ? $_GET['pesquisarPor'] : '';
+
+        $usuarios = array();
+
+        if($pesquisarPor != ''){
+            
+            $usuario = Container::getModel('Usuario');//retorna um obj com a conexão com banco de dados
+            $usuario->__set('nome', $pesquisarPor);//setar o valor recebido pela pesquisa no banco de dados
+            $usuarios = $usuario->getAll();//retorna um array com os usuarios pesquisados
+        
+
+            }
+        
+        $this->view->usuarios = $usuarios;
+        
+        $this->render('quemSeguir');
+
+
+    }
+
+
 
 }
 

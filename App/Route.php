@@ -54,6 +54,13 @@ class Route extends Bootstrap{
             'controller' => 'AppController',//novo controlador
             'action' => 'quemSeguir'
         );
+
+
+        $routes['acao'] = array(//array de configuração da rota quem_seguir
+            'route' => '/acao',
+            'controller' => 'AppController',//novo controlador
+            'action' => 'acao'
+        );
         
         $this->setRoutes($routes);
     }

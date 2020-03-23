@@ -77,15 +77,53 @@ class Usuario extends Model{
 
     public function getAll(){//recuperar todos os usuários com base no termo pesquisado
         
-        $query = "select id, nome, email from usuarios where nome like :nome";
+        $query = "
+            select
+                u.id,
+                u.nome,
+                u.email,
+                (
+                    select
+                        count(*)
+                    from
+                        usuarios_seguidores as us
+                    where
+                        us.id_usuario = :id_usuario and us.id_usuario_seguindo = u.id
+                ) as seguindo_sn
+            from
+                usuarios as u
+            where
+                u.nome like :nome and u.id != :id_usuario";
         $stmt = $this->db->prepare($query);
 
         //atribui o valor retornado do banco com o atributo nome,
         //podendo ter qualquer coisa antes e depois do nome pesquisado
-        $stmt->bindValue('nome', '%'.$this->__get('nome').'%');
+        $stmt->bindValue(':nome', '%'.$this->__get('nome').'%');
+        $stmt->bindValue(':id_usuario', $this->__get('id'));
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);//retornar a pesquisa em forma de array
+    }
+
+    public function seguirUsuario($id_usuario_seguindo){
+        $query = "insert into usuarios_seguidores(id_usuario, id_usuario_seguindo)values(:id_usuario, :id_usuario_seguindo)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $this->__get('id'));
+        $stmt->bindValue(':id_usuario_seguindo', $id_usuario_seguindo);
+        $stmt->execute();
+
+        return true;//verdadeiro para a inserção
+               
+    }
+
+    public function deixarSeguirUsuario($id_usuario_seguindo){
+        $query = "delete from usuarios_seguidores where  id_usuario = :id_usuario and id_usuario_seguindo = :id_usuario_seguindo";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $this->__get('id'));
+        $stmt->bindValue(':id_usuario_seguindo', $id_usuario_seguindo);
+        $stmt->execute();
+
+        return true;
     }
 }
 

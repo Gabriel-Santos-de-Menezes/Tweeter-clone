@@ -21,7 +21,7 @@ class AppController extends Action{
 
          $tweet->__set('id_usuario', $_SESSION['id']);
 
-         $tweets = $tweet->getAll();//retorna um array de tweets
+         $tweets = $tweet->getAll();//retorna um array de todos os tweets
             
          //encaminhar os tweets para a timeline
          $this->view->tweets = $tweets;//manda o array de tweets para timeline
@@ -70,6 +70,7 @@ class AppController extends Action{
             
             $usuario = Container::getModel('Usuario');//retorna um obj com a conexão com banco de dados
             $usuario->__set('nome', $pesquisarPor);//setar o valor recebido pela pesquisa no banco de dados
+            $usuario->__set('id', $_SESSION['id']);//setar o valor recebido pela pesquisa no banco de dados
             $usuarios = $usuario->getAll();//retorna um array com os usuarios pesquisados
         
 
@@ -79,6 +80,28 @@ class AppController extends Action{
         
         $this->render('quemSeguir');
 
+
+    }
+
+    public function acao(){
+        $this->validaAutenticacao();
+
+        //acao
+        //if ternário, caso o valor não seja vazio, a variavel acao recebe o parametro passado polo get, caso esteja vazia, recebe vazio
+        $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
+        //id_usuario
+        $id_usuario_seguindo = isset($_GET['id_usuario']) ? $_GET['id_usuario'] : '';
+
+        $usuario = Container::getModel('Usuario');//Instancia do modelo Usuario
+        $usuario->__set('id', $_SESSION['id']);//setando id so usuário ao atributo id
+
+        if($acao == 'seguir'){
+            $usuario->seguirUsuario($id_usuario_seguindo);
+        }else if($acao =='deixar_de_seguir'){
+            $usuario->deixarSeguirUsuario($id_usuario_seguindo);
+        }
+
+        header('Location: /quem_seguir');
 
     }
 

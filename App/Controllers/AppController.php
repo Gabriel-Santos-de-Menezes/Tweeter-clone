@@ -12,7 +12,7 @@ use MF\Model\Container;//abstração do container
 
 class AppController extends Action{
 
-    public function timeline(){
+    public function timeline(){//renderiza a view timile
 
         $this->validaAutenticacao();//se for falso ira ser redirecionado para a página de login
 
@@ -102,6 +102,26 @@ class AppController extends Action{
         }
 
         header('Location: /quem_seguir');
+
+    }
+
+
+    public function deletar_tweet(){
+
+        $this->validaAutenticacao();
+
+        //recuperação dos tweets
+        $tweet = Container::getModel('Tweet');//retorna a conexão com o banco configurada
+
+        $tweet->__set('id_usuario', $_SESSION['id']);//setando id so usuário ao atributo id
+        $deletar = isset($_GET['id_tweet']) ? $_GET['id_tweet'] : '';//vendo se edtá sendo passado o atibuto id_tweet
+        $tweet->__set('id', $deletar);
+
+        //echo $this->__get('id');
+
+        $tweet->deletar();
+
+        header('Location: /timeline');
 
     }
 

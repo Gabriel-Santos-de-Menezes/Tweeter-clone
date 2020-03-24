@@ -61,6 +61,13 @@ class Route extends Bootstrap{
             'controller' => 'AppController',//novo controlador
             'action' => 'acao'
         );
+
+
+        $routes['deletar_tweet'] = array(//array de configuração da rota quem_seguir
+            'route' => '/deletar_tweet',
+            'controller' => 'AppController',//novo controlador
+            'action' => 'deletar_tweet'
+        );
         
         $this->setRoutes($routes);
     }

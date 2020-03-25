@@ -128,20 +128,20 @@ class Usuario extends Model{
 
     //recuperar as informações do usuário
     public function getInfousuario(){
-        $query = "select nome from usuarios where id :id_usuario";
+        $query = "select nome from usuarios where id = :id_usuario";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':id_usuarios', $this->__get('id'));
+        $stmt->bindValue(':id_usuario', $this->__get('id'));
         $stmt->execute();
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);//recuperar um único array associativo
     }
     
-    //recuperar o tortal de tweets
+    //recuperar o total de tweets
     public function getTotalTweets(){
         //Contar quantos tweets o usuário possui
-        $query = "select count(*) as total_tweet nome from tweets where id_usuario = :id_usuario";
+        $query = "select count(*) as total_tweet from tweets where id_usuario = :id_usuario";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':id_usuarios', $this->__get('id'));
+        $stmt->bindValue(':id_usuario', $this->__get('id'));
         $stmt->execute();
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);//recuperar um único array associativo
@@ -150,9 +150,9 @@ class Usuario extends Model{
     //total de usuários que estamos seguindo
         public function getTotalSeguindo(){
             //Contar quantos tweets o usuário possui
-            $query = "select count(*) as total_seguindo nome from usuarios_seguidores where id_usuario = :id_usuario";
+            $query = "select count(*) as total_seguindo from usuarios_seguidores where id_usuario = :id_usuario";
             $stmt = $this->db->prepare($query);
-            $stmt->bindValue(':id_usuarios', $this->__get('id'));
+            $stmt->bindValue(':id_usuario', $this->__get('id'));
             $stmt->execute();
     
             return $stmt->fetch(\PDO::FETCH_ASSOC);//recuperar um único array associativo
@@ -161,9 +161,9 @@ class Usuario extends Model{
         //Total de seguidores
             public function getTotalSeguidores(){
                 //Contar quantos tweets o usuário possui
-                $query = "select count(*) as total_seguidores nome from usuarios_seguidores where id_usuario_seguindo = :id_usuario";
+                $query = "select count(*) as total_seguidores from usuarios_seguidores where id_usuario_seguindo = :id_usuario";
                 $stmt = $this->db->prepare($query);
-                $stmt->bindValue(':id_usuarios', $this->__get('id'));
+                $stmt->bindValue(':id_usuario', $this->__get('id'));
                 $stmt->execute();
         
                 return $stmt->fetch(\PDO::FETCH_ASSOC);//recuperar um único array associativo
